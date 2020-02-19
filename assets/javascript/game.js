@@ -26,3 +26,39 @@ let generateUnderscore = () => {
   console.log(underscore);
   return underscore;
 };
+
+
+// Get users guess
+document.addEventListener("keypress", event => {
+    let userKey = event.key.toLowerCase();
+    console.log(userKey);
+  
+    // If users guess is right
+    if (choosenWord.indexOf(userKey) > -1) {
+      console.log(true);
+      // add to right words array
+      rightword.push(userKey);
+      document.getElementById("right").textContent = rightword;
+      for (var i = 0; i < choosenWord.length; i++) {
+        if (choosenWord[i] === userKey) {
+          underscore[i] = userKey;
+        }
+      }
+      //show the info on the screen
+      document.getElementById("underscore").textContent = underscore;
+      if (underscore.join("") == choosenWord) {
+        alert("You Win");
+        document.getElementById("image").innerHTML=`<img src="./assets/images/${words[randNum]}.jpg">`
+        play()
+      }
+    } else {
+      wrongword.push(userKey);
+      document.getElementById("wrong").textContent = wrongword;
+      remains--;
+      document.getElementById("remains").textContent = remains
+      if (remains === 0) {
+        alert("you loose, click to play again ");
+        play()
+      }
+    }
+  });
